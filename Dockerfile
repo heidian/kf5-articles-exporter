@@ -14,4 +14,6 @@ RUN apt-get install -y libmariadb-dev-compat libmariadb-dev
 
 WORKDIR /app
 COPY --from=builder /app/target/release/kf5-articles-exporter /app
+COPY --from=builder /app/website /app
+COPY --from=builder /app/data /app
 CMD ["./kf5-articles-exporter"]
