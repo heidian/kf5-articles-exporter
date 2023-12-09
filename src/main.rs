@@ -76,14 +76,16 @@ async fn article_handler(Path(article_id): Path<String>) -> Html<String> {
     let article = posts
         .as_array().unwrap().iter()
         .find(|c| c["id"] == article_id).unwrap();
-    // let article_content = article["content"].as_str().unwrap()
-    //     // replace by regexp
-    //     .replace("https://files.kf5.com/attachments/download/", "https://up.img.heidiancdn.com/")
-    //     .replace("https://files.kf5.com/attachments/download/", "https://up.img.heidiancdn.com/");
 
+    let article_content = article["content"].as_str().unwrap().to_owned();
     let re = Regex::new(r"https:\/\/files.kf5.com\/attachments\/download\/(\w+\/\w+\/\w+)\/").unwrap();
     let article_content = re.replace_all(
-        article["content"].as_str().unwrap(),
+        &article_content,
+        "https://up.img.heidiancdn.com/kf5/$1"
+    );
+    let re = Regex::new(r"https:\/\/heidian.kf5.com\/attachments\/download\/(\w+\/\w+)\/").unwrap();
+    let article_content = re.replace_all(
+        &article_content,
         "https://up.img.heidiancdn.com/kf5/$1"
     );
 
