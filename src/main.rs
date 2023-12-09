@@ -5,6 +5,8 @@ use axum::{
     Router,
 };
 use std::env;
+use regex::Regex;
+
 
 async fn load_html(snippet_name: &str) -> String {
     let path = format!("website/{}", snippet_name);
@@ -59,12 +61,40 @@ async fn category_handler(Path(category_id): Path<String>) -> Html<String> {
         .find(|c| c["id"] == category_id).unwrap();
     let category_html = load_html("snippets/category.html").await;
     let category_html = category_html
-        .replace("{{category_name}}", &category["title"].as_str().unwrap())
+        .replace("{{category_name}}", category["title"].as_str().unwrap())
         .replace("{{section_tree}}", &section_tree_html);
 
     let layout_html = load_html("layout.html").await;
-    let layout = layout_html.replace("{{body}}", &category_html);
-    Html(layout)
+    let html = layout_html.replace("{{body}}", &category_html);
+    Html(html)
+}
+
+async fn article_handler(Path(article_id): Path<String>) -> Html<String> {
+    let article_id = article_id.parse::<i64>().unwrap();
+    let posts = load_json("posts").await;
+
+    let article = posts
+        .as_array().unwrap().iter()
+        .find(|c| c["id"] == article_id).unwrap();
+    // let article_content = article["content"].as_str().unwrap()
+    //     // replace by regexp
+    //     .replace("https://files.kf5.com/attachments/download/", "https://up.img.heidiancdn.com/")
+    //     .replace("https://files.kf5.com/attachments/download/", "https://up.img.heidiancdn.com/");
+
+    let re = Regex::new(r"https:\/\/files.kf5.com\/attachments\/download\/(\w+\/\w+\/\w+)\/").unwrap();
+    let article_content = re.replace_all(
+        article["content"].as_str().unwrap(),
+        "https://up.img.heidiancdn.com/kf5/$1"
+    );
+
+    let article_html = load_html("snippets/article.html").await;
+    let article_html = article_html
+        .replace("{{article_title}}", article["title"].as_str().unwrap())
+        .replace("{{article_body}}", &article_content);
+
+    let layout_html = load_html("layout.html").await;
+    let html = layout_html.replace("{{body}}", &article_html);
+    Html(html)
 }
 
 #[tokio::main]
@@ -74,6 +104,8 @@ async fn main() {
         .route("/hc", get(homepage_handler))
         .route("/hc/kb/category/:id", get(category_handler))
         .route("/hc/kb/category/:id/", get(category_handler))
+        .route("/hc/kb/article/:id", get(article_handler))
+        .route("/hc/kb/article/:id/", get(article_handler))
         ;
 
     let port = env::var("PORT").unwrap_or_else(|_| String::from("3000"));
