@@ -1,0 +1,79 @@
+{
+    "categories": [
+        {
+            "id": 1031968,
+            "url": "https://heidian.kf5.com/apiv2/categories/1031968.json",
+            "title": "微信小程序",
+            "content": "",
+            "display_limit": 10,
+            "sort": 1
+        },
+        {
+            "id": 1007242,
+            "url": "https://heidian.kf5.com/apiv2/categories/1007242.json",
+            "title": "常见问题",
+            "content": "",
+            "display_limit": 20,
+            "sort": 8
+        },
+        {
+            "id": 1000045,
+            "url": "https://heidian.kf5.com/apiv2/categories/1000045.json",
+            "title": "编辑网站",
+            "content": "",
+            "display_limit": 10,
+            "sort": 3
+        },
+        {
+            "id": 1000044,
+            "url": "https://heidian.kf5.com/apiv2/categories/1000044.json",
+            "title": "营销管理",
+            "content": "",
+            "display_limit": 10,
+            "sort": 7
+        },
+        {
+            "id": 1000042,
+            "url": "https://heidian.kf5.com/apiv2/categories/1000042.json",
+            "title": "订单管理",
+            "content": "",
+            "display_limit": 10,
+            "sort": 5
+        },
+        {
+            "id": 1000041,
+            "url": "https://heidian.kf5.com/apiv2/categories/1000041.json",
+            "title": "自定义域名",
+            "content": "",
+            "display_limit": 10,
+            "sort": 6
+        },
+        {
+            "id": 1000040,
+            "url": "https://heidian.kf5.com/apiv2/categories/1000040.json",
+            "title": "收款设置 ",
+            "content": "",
+            "display_limit": 10,
+            "sort": 2
+        },
+        {
+            "id": 1000039,
+            "url": "https://heidian.kf5.com/apiv2/categories/1000039.json",
+            "title": "商品管理 ",
+            "content": "",
+            "display_limit": 10,
+            "sort": 4
+        },
+        {
+            "id": 1000036,
+            "url": "https://heidian.kf5.com/apiv2/categories/1000036.json",
+            "title": "开始使用",
+            "content": "",
+            "display_limit": 10,
+            "sort": 0
+        }
+    ],
+    "count": 9,
+    "next_page": null,
+    "previous_page": null
+}
