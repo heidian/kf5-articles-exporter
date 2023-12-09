@@ -133,8 +133,10 @@ async fn article_handler(Path(article_id): Path<String>) -> Html<String> {
 #[tokio::main]
 async fn main() {
     let app = Router::new()
-        .route("/", get(|| async { "Hello, 嘿店!" }))
+        // .route("/", get(|| async { "Hello, 嘿店!" }))
+        .route("/", get(homepage_handler))
         .route("/hc", get(homepage_handler))
+        .route("/hc/", get(homepage_handler))
         .route("/hc/kb/category/:id", get(category_handler))
         .route("/hc/kb/category/:id/", get(category_handler))
         .route("/hc/kb/section/:id", get(section_handler))
